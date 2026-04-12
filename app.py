@@ -1,9 +1,12 @@
+from flask import Flask
 import sys
 
-def main():
-    print("Hello World!")
-    print("This is test code!")
-    print(f"Python version: {sys.version}")
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    main()
+@app.route('/')
+def hello():
+    return f"<h1>Hello World!</h1><p>Running on Python {sys.version}</p>"
+
+if __name__ == '__main__':
+    # host='0.0.0.0' is CRITICAL for Docker
+    app.run(host='0.0.0.0', port=5000)
