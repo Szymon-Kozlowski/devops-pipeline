@@ -13,3 +13,8 @@ steps:
 - script: |
     docker build -t devops-app:$(Build.BuildId) .
   displayName: 'Build Docker Image'
+
+- script: |
+    # This runs a security scan on the image we just built
+    docker run --rm -v //var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL devops-app:$(Build.BuildId)
+  displayName: 'Scan Image for vulnerabilities'
