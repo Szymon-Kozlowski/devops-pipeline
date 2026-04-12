@@ -1,0 +1,15 @@
+trigger: 
+- main 
+
+pool:
+  vmImage: ubuntu-latest
+
+steps: 
+- task: UsePythonVersion@0
+  inputs: 
+    versionSpec: '3.13'
+  displayName: 'Install Python 3.13'
+
+- script: |
+    docker build -t devops-app:$(Build.BuildId) .
+  displayName: 'Build Docker Image'
